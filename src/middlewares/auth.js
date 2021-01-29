@@ -13,6 +13,8 @@ const authMiddleware =  (request, response, next) => {
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
 
+    console.log(JSON.stringify(payload, null, 2));
+
     request.payload = payload;
 
     return next();
