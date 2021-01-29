@@ -1,7 +1,8 @@
 import 'dotenv/config';
+import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-const authMiddleware =  (request, response, next) => {
+const authMiddleware =  (request: Request, response: Response, next: any) => {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -11,11 +12,9 @@ const authMiddleware =  (request, response, next) => {
   const [, token] = authHeader.split(' '); // bearer token
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(token, process.env.JWT_SECRET || '');
 
     console.log(JSON.stringify(payload, null, 2));
-
-    request.payload = payload;
 
     return next();
   } catch (error) {
