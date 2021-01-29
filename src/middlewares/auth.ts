@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const authMiddleware =  (request: Request, response: Response, next: any) => {
   const authHeader = request.headers.authorization;
 
