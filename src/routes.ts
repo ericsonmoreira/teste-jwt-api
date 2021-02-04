@@ -6,6 +6,6 @@ const routes = Router();
 
 routes.post('/signin', UserController.signin);
 
-routes.post('/users', authMiddleware, UserController.get);
+routes.get('/user', authMiddleware, UserController.get);
 
 export default routes;
