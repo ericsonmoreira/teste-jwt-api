@@ -27,16 +27,20 @@ export default {
       email: user.email,
     };
 
-    return response.json({
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      },
-      token: jwt.sign(userToSend, process.env.JWT_SECRET || '', {
-        expiresIn: '7d',
-      }),
-    });
+    const { JWT_SECRET } = process.env;
+
+    try {
+      if (!JWT_SECRET) throw new Error('Jwt key is not defined');
+
+      return response.json({
+        user: userToSend,
+        token: jwt.sign(userToSend, JWT_SECRET, {
+          expiresIn: '7d',
+        }),
+      });
+    } catch (error) {
+      return response.status(500).json({ message: 'Erro' });
+    }
   },
   get(request: Request, response: Response) {
     const usersToSend = users.map((user) => ({
@@ -47,6 +51,6 @@ export default {
     return response.json(usersToSend);
   },
   isAuthenticated(request: Request, response: Response) {
-    return response.json({ message: ' authenticated'});
+    return response.json({ message: ' authenticated' });
   },
 };
