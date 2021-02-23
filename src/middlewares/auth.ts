@@ -1,9 +1,12 @@
 import 'dotenv/config';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const authMiddleware = (request: Request, response: Response, next: any) => {
+const authMiddleware = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
@@ -11,9 +14,6 @@ const authMiddleware = (request: Request, response: Response, next: any) => {
   }
 
   const [, token] = authHeader.split(' '); // bearer token
-
-  // TODO: remover isso depois
-  console.log(token);
 
   try {
     const { JWT_SECRET } = process.env;
