@@ -12,6 +12,9 @@ const authMiddleware = (request: Request, response: Response, next: any) => {
 
   const [, token] = authHeader.split(' '); // bearer token
 
+  // TODO: remover isso depois
+  console.log(token);
+
   try {
     const { JWT_SECRET } = process.env;
 

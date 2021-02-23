@@ -46,4 +46,7 @@ export default {
     }));
     return response.json(usersToSend);
   },
+  isAuthenticated(request: Request, response: Response) {
+    return response.json({ message: ' authenticated'});
+  },
 };

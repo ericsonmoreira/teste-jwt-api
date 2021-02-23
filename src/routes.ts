@@ -8,4 +8,6 @@ routes.post('/signin', UserController.signin);
 
 routes.get('/user', authMiddleware, UserController.get);
 
+routes.get('/authenticated', authMiddleware, UserController.isAuthenticated);
+
 export default routes;
